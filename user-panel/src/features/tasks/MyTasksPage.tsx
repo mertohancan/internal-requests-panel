@@ -44,7 +44,8 @@ const MyTasksPage: React.FC = () => {
   if (!user) return <div>Oturum bulunamadı.</div>;
 
   const filtered = items.filter(
-    (t) => t.createdBy === user.id && (filter === "all" || t.status === filter),
+    (t: Task) =>
+      t.createdBy === user.id && (filter === "all" || t.status === filter),
   );
 
   // Pagination logic
@@ -52,7 +53,7 @@ const MyTasksPage: React.FC = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedTasks = filtered.slice(startIndex, startIndex + itemsPerPage);
 
-  const selectedTask = filtered.find((t) => t.id === selectedTaskId);
+  const selectedTask = filtered.find((t: Task) => t.id === selectedTaskId);
 
   const columns: Column<Task>[] = [
     {
@@ -141,7 +142,7 @@ const MyTasksPage: React.FC = () => {
         <Table
           columns={columns}
           data={paginatedTasks}
-          keyExtractor={(task) => task.id}
+          keyExtractor={(task: Task) => task.id}
           emptyMessage={
             filter === "all"
               ? "Henüz talep oluşturmadınız"

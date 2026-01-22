@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build:shared && npm run build:admin",
+  "installCommand": "npm run install:all",
+  "outputDirectory": "admin-panel/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

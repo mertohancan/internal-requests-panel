@@ -8,23 +8,22 @@ import type { TaskFormInputs } from "./TaskQuickForm";
 import TaskModal from "./TaskModal";
 import { useState } from "react";
 import { api } from "@/services/api";
+import type { Task } from "@/types";
 
 import { StatusBadge, Spinner } from "@task-approval/shared-ui";
 
 const DashboardPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items, loading, error } = useAppSelector(
-    (state) => (state as any).tasks,
-  );
+  const { items, loading, error } = useAppSelector((state) => state.tasks);
 
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
 
   const total = items.length;
-  const pending = items.filter((t) => t.status === "pending").length;
-  const approved = items.filter((t) => t.status === "approved").length;
-  const rejected = items.filter((t) => t.status === "rejected").length;
+  const pending = items.filter((t: Task) => t.status === "pending").length;
+  const approved = items.filter((t: Task) => t.status === "approved").length;
+  const rejected = items.filter((t: Task) => t.status === "rejected").length;
   const lastTasks = items.slice(0, 5);
 
   const [formLoading, setFormLoading] = useState(false);

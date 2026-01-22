@@ -13,9 +13,16 @@ const __dirname = dirname(__filename);
 const app = express();
 const httpServer = createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  process.env.USER_PANEL_URL,
+  process.env.ADMIN_PANEL_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
@@ -24,7 +31,7 @@ app.use(cookieParser());
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   },
@@ -82,8 +89,8 @@ app.post("/admin/login", (req, res) => {
   const token = `mock-token-${user.id}`;
   res.cookie("admin_token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000, // 24 saat
   });
 
@@ -113,8 +120,8 @@ app.post("/users/login", (req, res) => {
   const token = `mock-token-${user.id}`;
   res.cookie("user_token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
@@ -258,7 +265,7 @@ app.delete("/tasks/:id", (req, res) => {
   res.status(204).send();
 });
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 httpServer.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

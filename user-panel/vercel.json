@@ -1,5 +1,11 @@
 {
-  "buildCommand": "npm run build:shared && npm run build:user",
-  "installCommand": "npm run install:all",
-  "outputDirectory": "user-panel/dist"
+  "buildCommand": "cd ../shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

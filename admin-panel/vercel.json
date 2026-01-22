@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build:shared && npm run build:admin",
-  "installCommand": "npm run install:all",
-  "outputDirectory": "admin-panel/dist",
+  "buildCommand": "cd ../shared-ui && npm install && npm run build && cd ../admin-panel && npm install && npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",

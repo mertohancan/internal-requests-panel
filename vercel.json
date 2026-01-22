@@ -1,5 +1,4 @@
 {
-  "installCommand": "echo 'Skipping default install'",
-  "buildCommand": "cd shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
+  "buildCommand": "pwd && ls -la && cd shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
   "outputDirectory": "user-panel/dist"
 }

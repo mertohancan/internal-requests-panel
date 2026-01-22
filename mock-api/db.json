@@ -1,0 +1,253 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "email": "user1@test.com",
+      "password": "123456"
+    },
+    {
+      "id": "u2",
+      "email": "user2@test.com",
+      "password": "123456"
+    }
+  ],
+  "adminUsers": [
+    {
+      "id": "a1",
+      "name": "Admin",
+      "email": "admin@test.com",
+      "password": "admin123",
+      "role": "Admin"
+    },
+    {
+      "id": "a3",
+      "name": "Viewer",
+      "email": "viewer@test.com",
+      "password": "viewer123",
+      "role": "Viewer"
+    },
+    {
+      "id": "1769077973790",
+      "name": "Mert Ohancan",
+      "email": "moderator@test.com",
+      "password": "mod123",
+      "role": "Moderator"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "title": "VPN bağlantısı kopuyor",
+      "description": "VPN 5-10 dakikada bir düşüyor.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-18T08:10:00.000Z"
+    },
+    {
+      "id": "t2",
+      "title": "Satın Alma: Kulaklık",
+      "description": "Ekip için 2 adet kulaklık talebi.",
+      "priority": "normal",
+      "category": "Satın Alma",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-17T11:40:00.000Z"
+    },
+    {
+      "id": "t3",
+      "title": "İzin Talebi - Yarım Gün",
+      "description": "Cuma yarım gün izin talep ediyorum.",
+      "priority": "low",
+      "category": "İzin Talebi",
+      "status": "rejected",
+      "createdBy": "u1",
+      "createdAt": "2026-01-16T09:05:00.000Z",
+      "rejectionReason": "Yoğun dönem, hafta içi planlama uygun değil."
+    },
+    {
+      "id": "t4",
+      "title": "Acil: Prod hata",
+      "description": "Ödeme adımında 500 hatası alınıyor.",
+      "priority": "urgent",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-19T14:22:00.000Z"
+    },
+    {
+      "id": "t5",
+      "title": "Diğer: Ekran kırıldı",
+      "description": "Laptop ekranında çatlak oluştu.",
+      "priority": "high",
+      "category": "Diğer",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-19T09:55:00.000Z"
+    },
+    {
+      "id": "t6",
+      "title": "Teknik: Mail imzası güncelleme",
+      "description": "Yeni unvan ile imza güncellenmeli.",
+      "priority": "low",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-12T10:30:00.000Z"
+    },
+    {
+      "id": "t7",
+      "title": "Satın Alma: Ofis sandalyesi",
+      "description": "Ergonomik sandalye talep ediyorum.",
+      "priority": "normal",
+      "category": "Satın Alma",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-15T15:10:00.000Z"
+    },
+    {
+      "id": "t8",
+      "title": "İzin: 2 Gün",
+      "description": "Haftaya 2 gün izin talebi.",
+      "priority": "normal",
+      "category": "İzin Talebi",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "t9",
+      "title": "Teknik: Wi-Fi çekmiyor",
+      "description": "Toplantı odasında bağlantı zayıf.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "rejected",
+      "createdBy": "u1",
+      "createdAt": "2026-01-09T12:45:00.000Z",
+      "rejectionReason": "Saha çalışması planlandı, geçici çözüm önerildi."
+    },
+    {
+      "id": "t10",
+      "title": "Diğer: Kart erişimi",
+      "description": "Turnike kartım çalışmıyor.",
+      "priority": "urgent",
+      "category": "Diğer",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-19T07:30:00.000Z"
+    },
+    {
+      "id": "t11",
+      "title": "Satın Alma: Monitör",
+      "description": "27 inç monitör talebi.",
+      "priority": "high",
+      "category": "Satın Alma",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-03T09:10:00.000Z"
+    },
+    {
+      "id": "t12",
+      "title": "Teknik: Yazıcı kurulumu",
+      "description": "Yeni yazıcı sürücüsü gerekli.",
+      "priority": "low",
+      "category": "Teknik Destek",
+      "status": "rejected",
+      "createdBy": "u2",
+      "createdAt": "2026-01-14T16:20:00.000Z",
+      "rejectionReason": "yazıcı kalmadı"
+    },
+    {
+      "id": "t13",
+      "title": "İzin: Hastane randevusu",
+      "description": "Öğleden sonra izin rica ediyorum.",
+      "priority": "normal",
+      "category": "İzin Talebi",
+      "status": "rejected",
+      "createdBy": "u2",
+      "createdAt": "2026-01-08T10:10:00.000Z",
+      "rejectionReason": "Ekip planı nedeniyle tarih uygun değil."
+    },
+    {
+      "id": "t14",
+      "title": "Diğer: Eğitim talebi",
+      "description": "TypeScript ileri seviye eğitim talebi.",
+      "priority": "low",
+      "category": "Diğer",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-05T13:00:00.000Z"
+    },
+    {
+      "id": "t15",
+      "title": "Teknik: Laptop yavaş",
+      "description": "Performans ciddi düştü.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-19T12:05:00.000Z"
+    },
+    {
+      "id": "t16",
+      "title": "Satın Alma: Lisans",
+      "description": "Figma lisansı talep ediyorum.",
+      "priority": "normal",
+      "category": "Satın Alma",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-13T09:20:00.000Z"
+    },
+    {
+      "id": "t17",
+      "title": "İzin: 1 gün",
+      "description": "Pazartesi izin talebi.",
+      "priority": "normal",
+      "category": "İzin Talebi",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-07T11:00:00.000Z"
+    },
+    {
+      "id": "t18",
+      "title": "Diğer: Masa lambası",
+      "description": "Masa lambası talebi.",
+      "priority": "low",
+      "category": "Diğer",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-18T17:15:00.000Z"
+    },
+    {
+      "id": "t19",
+      "title": "Teknik: Slack erişimi",
+      "description": "Yeni workspace daveti gerekli.",
+      "priority": "normal",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u2",
+      "createdAt": "2026-01-04T10:00:00.000Z"
+    },
+    {
+      "id": "t20",
+      "title": "Acil: Hesap kilitli",
+      "description": "SSO hesabım kilitlendi.",
+      "priority": "urgent",
+      "category": "Teknik Destek",
+      "status": "approved",
+      "createdBy": "u1",
+      "createdAt": "2026-01-19T15:45:00.000Z"
+    },
+    {
+      "id": "1769080027127",
+      "createdAt": "2026-01-22T11:07:07.121Z",
+      "priority": "normal",
+      "category": "Teknik Destek",
+      "title": "deneme",
+      "description": "deneme",
+      "status": "pending",
+      "createdBy": "u1"
+    }
+  ]
+}

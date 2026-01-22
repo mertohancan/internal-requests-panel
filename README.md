@@ -131,22 +131,6 @@ function MyComponent() {
 }
 ```
 
-**Toast Kullanımı:**
-
-```tsx
-// Her panelde ayrı ayrı - src/components/Toast.tsx
-import { Toaster } from "react-hot-toast";
-const Toast = () => <Toaster position="top-right" />;
-export default Toast;
-
-// App.tsx'de kullanımı
-import Toast from "@/components/Toast";
-import { toast } from "react-hot-toast";
-
-toast.success("İşlem başarılı!");
-toast.error("Hata oluştu!");
-```
-
 ## 🔄 Shared UI Güncelleme
 
 Shared UI'da değişiklik yaptıysanız:
@@ -163,7 +147,7 @@ cd ../admin-panel
 npm install
 ```
 
-## 📝 API Endpoints
+## API Endpoints
 
 ### Mock API (http://localhost:4000)
 
@@ -190,7 +174,7 @@ npm install
 }
 ```
 
-## 🏗️ Mimari Kararlar
+## Mimari Kararlar
 
 ### 1. Monorepo Yapısı
 
@@ -213,7 +197,6 @@ npm install
 ### 4. Stil Yönetimi
 
 - SCSS Modules ile scope'lu stiller
-- CSS-in-JS yerine SCSS tercih edildi (performans)
 - Paylaşılan componentlerde inline styles (portability)
 
 ### 5. API Katmanı
@@ -242,18 +225,9 @@ npm run build
 
 Build dosyaları `admin-panel/dist` klasöründe oluşur.
 
-## 👨‍💻 Geliştirme Notları
-
-- TypeScript strict mode aktif
-- ESLint kuralları uygulanıyor
-- Vite HMR ile hızlı geliştirme
-- SCSS modules ile type-safe class names
-
 ## 🚧 Bilinen Eksiklikler
 
-- 🌓 Dark/Light theme desteği
 - 🌍 Localization (i18n) desteği
-- 🧪 Integration testleri
 
 ## 📄 Lisans
 

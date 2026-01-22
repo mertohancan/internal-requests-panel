@@ -1,4 +1,4 @@
 {
-  "buildCommand": "pwd && ls -la && cd shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
-  "outputDirectory": "user-panel/dist"
+  "buildCommand": "cd ../shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
+  "outputDirectory": "dist"
 }

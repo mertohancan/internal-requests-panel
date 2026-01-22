@@ -57,8 +57,8 @@ export interface CreateAdminUserRequest {
 }
 
 export interface UpdateAdminUserRequest {
-  name?: string;
-  email?: string;
+  name: string;
+  email: string;
   password?: string;
-  role?: "Admin" | "Moderator" | "Viewer";
+  role: "Admin" | "Moderator" | "Viewer";
 }

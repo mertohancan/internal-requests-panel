@@ -2,6 +2,14 @@
 
 İki ayrı panel içeren görev onay sistemi: User Panel (çalışan talebi) ve Admin Panel (yönetici onayı).
 
+## 🌐 Live Demo
+
+- **User Panel**: [https://internal-requests-user-panel.vercel.app](https://internal-requests-user-panel.vercel.app)
+- **Admin Panel**: [https://internal-requests-panel-admin-panel.vercel.app](https://internal-requests-panel-admin-panel.vercel.app)
+- **Backend API**: https://internal-requests-panel-production.up.railway.app
+
+Test kullanıcıları aşağıda listelenmiştir.
+
 ## 📁 Proje Yapısı
 
 ```

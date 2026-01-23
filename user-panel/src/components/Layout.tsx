@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { logout } from "@/features/auth/authSlice";
 import { Layout as SharedLayout } from "@task-approval/shared-ui";
 import type { NavItem } from "@task-approval/shared-ui";
-import ThemeSwitcher from "./ThemeSwitcher";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,25 +14,16 @@ const navItems: NavItem[] = [
     path: "/dashboard",
     label: "Dashboard",
     icon: "📊",
-    roles: ["Admin", "Moderator", "Viewer"],
   },
   {
-    path: "/tasks/pending",
-    label: "Bekleyen Talepler",
-    icon: "⏳",
-    roles: ["Admin", "Moderator", "Viewer"],
+    path: "/tasks/new",
+    label: "Yeni Talep",
+    icon: "➕",
   },
   {
-    path: "/tasks/all",
-    label: "Tüm Talepler",
+    path: "/tasks",
+    label: "Taleplerim",
     icon: "📋",
-    roles: ["Admin", "Moderator"],
-  },
-  {
-    path: "/admin-users",
-    label: "Kullanıcı Yönetimi",
-    icon: "👥",
-    roles: ["Admin"],
   },
 ];
 
@@ -48,20 +38,33 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate("/login");
   };
 
-  const visibleNavItems = navItems.filter((item) =>
-    user ? item.roles?.includes(user.role) : false,
+  const brandIcon = (
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: "50%",
+        background: "#3b82f6",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: 700,
+        fontSize: "1.125rem",
+      }}
+    >
+      T
+    </div>
   );
 
   return (
     <SharedLayout
-      navItems={visibleNavItems}
+      navItems={navItems}
       currentPath={location.pathname}
       user={user}
       onNavigate={navigate}
       onLogout={handleLogout}
-      brandName="Admin Panel"
-      showThemeSwitcher={true}
-      themeSwitcher={<ThemeSwitcher />}
+      brandName="Talep Sistemi"
+      brandIcon={brandIcon}
     >
       {children}
     </SharedLayout>

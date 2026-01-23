@@ -11,6 +11,8 @@ export { default as Table } from "./components/Table";
 export type { Column, TableProps } from "./components/Table";
 export { default as Pagination } from "./components/Pagination";
 export type { PaginationProps } from "./components/Pagination";
+export { default as Layout } from "./components/Layout";
+export type { LayoutProps, NavItem } from "./components/Layout";
 
 // Theme
 export { theme } from "./theme";

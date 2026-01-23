@@ -3,7 +3,7 @@ import MyTasksPage from "@/features/tasks/MyTasksPage";
 import DashboardPage from "@/features/tasks/DashboardPage";
 import LoginPage from "@/features/auth/LoginPage";
 import TaskFormPage from "@/features/tasks/TaskFormPage";
-import Navbar from "@/components/Navbar";
+import Layout from "@/components/Layout";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { loadCurrentUser } from "@/features/auth/authSlice";
@@ -42,12 +42,7 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
   }
 
   if (!user) return <Navigate to="/login" replace />;
-  return (
-    <>
-      <Navbar />
-      {children}
-    </>
-  );
+  return <Layout>{children}</Layout>;
 }
 
 function App() {

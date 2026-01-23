@@ -58,6 +58,20 @@ export const updateTaskStatus = createAsyncThunk(
   },
 );
 
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async (taskId: string, { rejectWithValue }) => {
+    try {
+      await tasksService.deleteTask(taskId);
+      return taskId;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Talep silinemedi";
+      return rejectWithValue(message);
+    }
+  },
+);
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -89,6 +103,18 @@ const tasksSlice = createSlice({
         },
       )
       .addCase(updateTaskStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteTask.fulfilled, (state, action: PayloadAction<string>) => {
+        state.loading = false;
+        state.items = state.items.filter((t) => t.id !== action.payload);
+      })
+      .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

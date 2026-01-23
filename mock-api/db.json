@@ -36,16 +36,6 @@
   ],
   "tasks": [
     {
-      "id": "t1",
-      "title": "VPN bağlantısı kopuyor",
-      "description": "VPN 5-10 dakikada bir düşüyor.",
-      "priority": "high",
-      "category": "Teknik Destek",
-      "status": "approved",
-      "createdBy": "u1",
-      "createdAt": "2026-01-18T08:10:00.000Z"
-    },
-    {
       "id": "t2",
       "title": "Satın Alma: Kulaklık",
       "description": "Ekip için 2 adet kulaklık talebi.",
@@ -65,16 +55,6 @@
       "createdBy": "u1",
       "createdAt": "2026-01-16T09:05:00.000Z",
       "rejectionReason": "Yoğun dönem, hafta içi planlama uygun değil."
-    },
-    {
-      "id": "t4",
-      "title": "Acil: Prod hata",
-      "description": "Ödeme adımında 500 hatası alınıyor.",
-      "priority": "urgent",
-      "category": "Teknik Destek",
-      "status": "approved",
-      "createdBy": "u2",
-      "createdAt": "2026-01-19T14:22:00.000Z"
     },
     {
       "id": "t5",
@@ -180,16 +160,6 @@
       "createdAt": "2026-01-05T13:00:00.000Z"
     },
     {
-      "id": "t15",
-      "title": "Teknik: Laptop yavaş",
-      "description": "Performans ciddi düştü.",
-      "priority": "high",
-      "category": "Teknik Destek",
-      "status": "approved",
-      "createdBy": "u2",
-      "createdAt": "2026-01-19T12:05:00.000Z"
-    },
-    {
       "id": "t16",
       "title": "Satın Alma: Lisans",
       "description": "Figma lisansı talep ediyorum.",
@@ -228,26 +198,6 @@
       "status": "approved",
       "createdBy": "u2",
       "createdAt": "2026-01-04T10:00:00.000Z"
-    },
-    {
-      "id": "t20",
-      "title": "Acil: Hesap kilitli",
-      "description": "SSO hesabım kilitlendi.",
-      "priority": "urgent",
-      "category": "Teknik Destek",
-      "status": "approved",
-      "createdBy": "u1",
-      "createdAt": "2026-01-19T15:45:00.000Z"
-    },
-    {
-      "id": "1769080027127",
-      "createdAt": "2026-01-22T11:07:07.121Z",
-      "priority": "normal",
-      "category": "Teknik Destek",
-      "title": "deneme",
-      "description": "deneme",
-      "status": "pending",
-      "createdBy": "u1"
     }
   ]
 }

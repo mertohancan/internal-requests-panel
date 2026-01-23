@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchTasks } from "@/features/tasks/tasksSlice";
+import { fetchTasks, deleteTask } from "@/features/tasks/tasksSlice";
+import toast from "react-hot-toast";
 import {
   Spinner,
   StatusBadge,
   PriorityBadge,
   EmptyState,
   Table,
+  Modal,
 } from "@task-approval/shared-ui";
 import type { Column } from "@task-approval/shared-ui";
 import styles from "./AllTasksPage.module.scss";
@@ -17,13 +19,26 @@ export type { Priority, TaskStatus };
 const AllTasksPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items, loading, error } = useAppSelector((state) => state.tasks);
+  const user = useAppSelector((state) => state.auth.user);
   const [filter, setFilter] = useState<{
     status?: TaskStatus;
     priority?: Priority;
     date?: string;
   }>({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
   const itemsPerPage = 10;
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    try {
+      await dispatch(deleteTask(deleteId)).unwrap();
+      toast.success("Talep başarıyla silindi");
+      setDeleteId(null);
+    } catch (error) {
+      toast.error(error as string);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -97,6 +112,57 @@ const AllTasksPage: React.FC = () => {
       header: "Durum",
       render: (task: Task) => <StatusBadge status={task.status} />,
       width: "100px",
+    },
+    {
+      key: "actions",
+      header: "İşlemler",
+      render: (task: Task) => {
+        const isAdmin = user?.role === "Admin";
+        return (
+          <div className={styles.tooltipWrapper}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isAdmin) {
+                  setDeleteId(task.id);
+                }
+              }}
+              disabled={!isAdmin}
+              style={{
+                padding: "0.5rem 0.75rem",
+                fontSize: "0.8125rem",
+                backgroundColor: isAdmin ? "#ef4444" : "#9ca3af",
+                color: "white",
+                border: "none",
+                borderRadius: "0.375rem",
+                cursor: isAdmin ? "pointer" : "not-allowed",
+                fontWeight: 500,
+                opacity: isAdmin ? 1 : 0.6,
+                transition: "background-color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                if (isAdmin) {
+                  e.currentTarget.style.backgroundColor = "#dc2626";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isAdmin) {
+                  e.currentTarget.style.backgroundColor = "#ef4444";
+                }
+              }}
+            >
+              Sil
+            </button>
+            {!isAdmin && (
+              <span className={styles.tooltip}>
+                Yönetici yetkisi gerekmektedir
+              </span>
+            )}
+          </div>
+        );
+      },
+      width: "100px",
+      align: "center" as const,
     },
   ];
 
@@ -174,6 +240,34 @@ const AllTasksPage: React.FC = () => {
           description="Seçtiğiniz kriterlere uygun talep bulunmuyor."
         />
       )}
+
+      {/* Silme Onay Modal */}
+      <Modal
+        open={!!deleteId}
+        onClose={() => setDeleteId(null)}
+        title="Talebi Sil"
+      >
+        <div className={styles["delete-modal"]}>
+          <p className={styles.message}>
+            Bu talebi silmek istediğinizden emin misiniz? Bu işlem geri
+            alınamaz.
+          </p>
+          <div className={styles["modal-actions"]}>
+            <button
+              onClick={() => setDeleteId(null)}
+              className={styles["cancel-btn"]}
+            >
+              İptal
+            </button>
+            <button
+              onClick={handleDelete}
+              className={styles["delete-confirm-btn"]}
+            >
+              Sil
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -43,6 +43,14 @@ class TasksService {
       throw new Error(getErrorMessage(error, "Talep bulunamadı"));
     }
   }
+
+  async deleteTask(taskId: string): Promise<void> {
+    try {
+      await api.delete(`/tasks/${taskId}`);
+    } catch (error) {
+      throw new Error(getErrorMessage(error, "Talep silinemedi"));
+    }
+  }
 }
 
 export const tasksService = new TasksService();

@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npm install -g npm@latest && cd .. && npm install && npm run build:shared && cd admin-panel && npm install && npm run build",
+  "installCommand": "cd .. && npm install && cd admin-panel && npm install",
+  "buildCommand": "cd ../shared-ui && npm run build && cd ../admin-panel && npm run build",
   "outputDirectory": "dist",
   "rewrites": [
     {

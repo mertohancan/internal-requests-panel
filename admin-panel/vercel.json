@@ -1,5 +1,5 @@
 {
-  "installCommand": "cd .. && npm install && cd admin-panel && npm install",
+  "installCommand": "cd .. && rm -rf node_modules package-lock.json && npm install && cd admin-panel && rm -rf node_modules package-lock.json && npm install",
   "buildCommand": "cd ../shared-ui && npm run build && cd ../admin-panel && npm run build",
   "outputDirectory": "dist",
   "rewrites": [

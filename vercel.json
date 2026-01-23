@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd shared-ui && npm install && npm run build && cd ../user-panel && npm install && npm run build",
-  "outputDirectory": "user-panel/dist"
-}

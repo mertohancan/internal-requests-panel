@@ -4,7 +4,12 @@ import type {
   UnknownAction,
 } from "@reduxjs/toolkit";
 import { io, Socket } from "socket.io-client";
-import { fetchTasks } from "@/features/tasks/tasksSlice";
+import {
+  fetchTasks,
+  taskCreated,
+  taskUpdated,
+  taskDeleted,
+} from "@/features/tasks/tasksSlice";
 import toast from "react-hot-toast";
 
 let socket: Socket | null = null;
@@ -57,16 +62,25 @@ export const socketMiddleware: Middleware = (store) => {
       );
     });
 
-    socket.on("task:updated", () => {
-      (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
-        fetchTasks(),
-      );
+    socket.on("task:updated", (data) => {
+      if (data && data.task) {
+        store.dispatch(taskUpdated(data.task));
+      } else {
+        (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
+          fetchTasks(),
+        );
+      }
     });
 
-    socket.on("task:deleted", () => {
-      (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
-        fetchTasks(),
-      );
+    socket.on("task:deleted", (data) => {
+      if (data && data.taskId) {
+        store.dispatch(taskDeleted(data.taskId));
+      } else {
+        // Veri gelmiyorsa tüm listeyi yenile
+        (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
+          fetchTasks(),
+        );
+      }
     });
   }
 

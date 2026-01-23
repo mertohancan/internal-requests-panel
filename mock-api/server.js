@@ -272,7 +272,7 @@ app.patch("/tasks/:id", (req, res) => {
   db.tasks[taskIndex] = { ...db.tasks[taskIndex], ...req.body };
   writeDB(db);
 
-  io.emit("task:updated", db.tasks[taskIndex]);
+  io.emit("task:updated", { task: db.tasks[taskIndex] });
 
   res.json(db.tasks[taskIndex]);
 });
@@ -288,17 +288,18 @@ app.put("/tasks/:id", (req, res) => {
   db.tasks[taskIndex] = { id: req.params.id, ...req.body };
   writeDB(db);
 
-  io.emit("task:updated", db.tasks[taskIndex]);
+  io.emit("task:updated", { task: db.tasks[taskIndex] });
 
   res.json(db.tasks[taskIndex]);
 });
 
 app.delete("/tasks/:id", (req, res) => {
   const db = readDB();
-  db.tasks = db.tasks.filter((t) => t.id !== req.params.id);
+  const deletedTaskId = req.params.id;
+  db.tasks = db.tasks.filter((t) => t.id !== deletedTaskId);
   writeDB(db);
 
-  io.emit("task:deleted", { id: req.params.id });
+  io.emit("task:deleted", { taskId: deletedTaskId });
 
   res.status(204).send();
 });

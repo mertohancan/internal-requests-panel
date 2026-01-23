@@ -57,7 +57,6 @@ const PendingTasksPage: React.FC = () => {
 
     if (updateTaskStatus.fulfilled.match(result)) {
       toast.success("Talep onaylandı!");
-      dispatch(fetchTasks());
     } else {
       toast.error("Onaylama başarısız!");
     }
@@ -81,7 +80,6 @@ const PendingTasksPage: React.FC = () => {
       toast.success("Talep reddedildi!");
       setRejectId(null);
       setRejectionReason("");
-      dispatch(fetchTasks());
     } else {
       toast.error("Red işlemi başarısız!");
     }

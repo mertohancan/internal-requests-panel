@@ -47,7 +47,21 @@ export const createTask = createAsyncThunk(
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    // Optimistic updates for socket events
+    taskCreated: (state, action: PayloadAction<Task>) => {
+      state.items.unshift(action.payload);
+    },
+    taskUpdated: (state, action: PayloadAction<Task>) => {
+      const idx = state.items.findIndex((t) => t.id === action.payload.id);
+      if (idx !== -1) {
+        state.items[idx] = action.payload;
+      }
+    },
+    taskDeleted: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter((t) => t.id !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
@@ -77,4 +91,5 @@ const tasksSlice = createSlice({
   },
 });
 
+export const { taskCreated, taskUpdated, taskDeleted } = tasksSlice.actions;
 export default tasksSlice.reducer;

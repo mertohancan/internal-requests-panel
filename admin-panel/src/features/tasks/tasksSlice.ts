@@ -106,16 +106,14 @@ const tasksSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(deleteTask.pending, (state) => {
-        state.loading = true;
+      .addCase(deleteTask.pending, (state, action) => {
+        state.items = state.items.filter((t) => t.id !== action.meta.arg);
         state.error = null;
       })
-      .addCase(deleteTask.fulfilled, (state, action: PayloadAction<string>) => {
-        state.loading = false;
-        state.items = state.items.filter((t) => t.id !== action.payload);
+      .addCase(deleteTask.fulfilled, () => {
+        // No additional state change needed on fulfilled
       })
       .addCase(deleteTask.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.payload as string;
       });
   },

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchTasks, deleteTask } from "@/features/tasks/tasksSlice";
+import { deleteTask } from "@/features/tasks/tasksSlice";
 import toast from "react-hot-toast";
 import {
   Spinner,
@@ -41,10 +41,6 @@ const AllTasksPage: React.FC = () => {
       toast.error(error as string);
     }
   };
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
 
   const filtered = items.filter(
     (t) =>

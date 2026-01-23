@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchTasks } from "@/features/tasks/tasksSlice";
+import { useAppSelector } from "@/app/hooks";
+
 import styles from "./DashboardPage.module.scss";
 import TaskQuickForm from "./TaskQuickForm";
 import type { TaskFormInputs } from "./TaskQuickForm";
@@ -13,12 +13,7 @@ import type { Task } from "@/types";
 import { StatusBadge, Spinner } from "@task-approval/shared-ui";
 
 const DashboardPage: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { items, loading, error } = useAppSelector((state) => state.tasks);
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
 
   const total = items.length;
   const pending = items.filter((t: Task) => t.status === "pending").length;

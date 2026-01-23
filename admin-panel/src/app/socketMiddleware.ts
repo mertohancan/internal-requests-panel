@@ -9,6 +9,7 @@ import {
   taskUpdated,
   taskDeleted,
 } from "@/features/tasks/tasksSlice";
+import { login, loadCurrentUser } from "@/features/auth/authSlice";
 import toast from "react-hot-toast";
 
 let socket: Socket | null = null;
@@ -25,8 +26,13 @@ export const socketMiddleware: Middleware = (store) => {
     });
 
     socket.on("connect", () => {
-      // Don't fetch tasks on initial connect - components will fetch when they mount
-      // Only refresh on reconnect
+      // Only fetch tasks if user is authenticated
+      const state = store.getState() as { auth: { user: unknown } };
+      if (state.auth.user) {
+        (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
+          fetchTasks(),
+        );
+      }
     });
 
     socket.on("disconnect", () => {
@@ -84,7 +90,20 @@ export const socketMiddleware: Middleware = (store) => {
   }
 
   return (next) => (action) => {
-    return next(action);
+    const result = next(action);
+
+    if (
+      login.fulfilled.match(action) ||
+      loadCurrentUser.fulfilled.match(action)
+    ) {
+      if (action.payload) {
+        (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
+          fetchTasks(),
+        );
+      }
+    }
+
+    return result;
   };
 };
 

@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchTasks } from "@/features/tasks/tasksSlice";
+import React from "react";
+import { useAppSelector } from "@/app/hooks";
 import { Spinner, StatCard } from "@task-approval/shared-ui";
 import styles from "./DashboardPage.module.scss";
 
 const DashboardPage: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { items, loading, error } = useAppSelector((state) => state.tasks);
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
 
   const totalTasks = items.length;
   const pending = items.filter((t) => t.status === "pending").length;

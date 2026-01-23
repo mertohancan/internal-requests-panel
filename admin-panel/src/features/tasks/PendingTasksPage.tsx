@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { fetchTasks, updateTaskStatus } from "@/features/tasks/tasksSlice";
+import { updateTaskStatus } from "@/features/tasks/tasksSlice";
 import {
   Spinner,
   StatusBadge,
@@ -28,10 +28,6 @@ const PendingTasksPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const itemsPerPage = 10;
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
 
   const filtered = items.filter(
     (t) =>

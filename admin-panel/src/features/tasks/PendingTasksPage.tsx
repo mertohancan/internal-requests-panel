@@ -7,6 +7,7 @@ import {
   PriorityBadge,
   EmptyState,
   Table,
+  TaskDetailModal,
 } from "@task-approval/shared-ui";
 import type { Column } from "@task-approval/shared-ui";
 import toast from "react-hot-toast";
@@ -25,6 +26,7 @@ const PendingTasksPage: React.FC = () => {
   const [rejectId, setRejectId] = useState<string | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -128,6 +130,31 @@ const PendingTasksPage: React.FC = () => {
       header: "İşlem",
       render: (task: Task) => (
         <div className={styles.actions}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedTaskId(task.id);
+            }}
+            style={{
+              padding: "0.5rem 0.75rem",
+              fontSize: "0.8125rem",
+              backgroundColor: "#3b82f6",
+              color: "white",
+              border: "none",
+              borderRadius: "0.375rem",
+              cursor: "pointer",
+              fontWeight: 500,
+              transition: "background-color 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#2563eb";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#3b82f6";
+            }}
+          >
+            Görüntüle
+          </button>
           {user?.role === "Viewer" ? (
             <div
               className={styles["disabled-action"]}
@@ -170,7 +197,7 @@ const PendingTasksPage: React.FC = () => {
           )}
         </div>
       ),
-      width: "180px",
+      width: "280px",
       align: "center",
     },
   ];
@@ -279,6 +306,12 @@ const PendingTasksPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Talep Detay Modal */}
+      <TaskDetailModal
+        task={items.find((t) => t.id === selectedTaskId) || null}
+        onClose={() => setSelectedTaskId(null)}
+      />
     </div>
   );
 };

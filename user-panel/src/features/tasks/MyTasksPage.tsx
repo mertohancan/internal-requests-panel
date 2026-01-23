@@ -6,6 +6,7 @@ import {
   PriorityBadge,
   Spinner,
   Table,
+  TaskDetailModal,
 } from "@task-approval/shared-ui";
 import type { Column } from "@task-approval/shared-ui";
 import styles from "./MyTasksPage.module.scss";
@@ -159,70 +160,10 @@ const MyTasksPage: React.FC = () => {
       </div>
 
       {selectedTask && (
-        <div
-          className={styles["modal-overlay"]}
-          onClick={() => setSelectedTaskId(null)}
-        >
-          <div
-            className={styles["modal-content"]}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3>{selectedTask.title}</h3>
-
-            <div className={styles["detail-row"]}>
-              <span className={styles.label}>Açıklama</span>
-              <div className={styles.value}>{selectedTask.description}</div>
-            </div>
-
-            <div className={styles["detail-row"]}>
-              <span className={styles.label}>Öncelik</span>
-              <div className={styles.value}>
-                <PriorityBadge priority={selectedTask.priority} />
-              </div>
-            </div>
-
-            <div className={styles["detail-row"]}>
-              <span className={styles.label}>Kategori</span>
-              <div className={styles.value}>{selectedTask.category}</div>
-            </div>
-
-            <div className={styles["detail-row"]}>
-              <span className={styles.label}>Durum</span>
-              <div className={styles.value}>
-                <StatusBadge status={selectedTask.status} />
-              </div>
-            </div>
-
-            <div className={styles["detail-row"]}>
-              <span className={styles.label}>Oluşturulma Tarihi</span>
-              <div className={styles.value}>
-                {new Date(selectedTask.createdAt).toLocaleDateString("tr-TR", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </div>
-            </div>
-
-            {selectedTask.status === "rejected" && (
-              <div className={styles["rejection-reason"]}>
-                <span className={styles.label}>Red Sebebi</span>
-                <div className={styles.value}>
-                  {selectedTask.rejectionReason || "Sebep belirtilmedi"}
-                </div>
-              </div>
-            )}
-
-            <button
-              onClick={() => setSelectedTaskId(null)}
-              className={styles["close-btn"]}
-            >
-              Kapat
-            </button>
-          </div>
-        </div>
+        <TaskDetailModal
+          task={selectedTask}
+          onClose={() => setSelectedTaskId(null)}
+        />
       )}
     </div>
   );

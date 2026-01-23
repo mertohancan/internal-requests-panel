@@ -13,6 +13,7 @@ export { default as Pagination } from "./components/Pagination";
 export type { PaginationProps } from "./components/Pagination";
 export { default as Layout } from "./components/Layout";
 export type { LayoutProps, NavItem } from "./components/Layout";
+export { TaskDetailModal } from "./components/TaskDetailModal";
 
 // Theme
 export { theme } from "./theme";

@@ -9,6 +9,7 @@ import {
   EmptyState,
   Table,
   Modal,
+  TaskDetailModal,
 } from "@task-approval/shared-ui";
 import type { Column } from "@task-approval/shared-ui";
 import styles from "./AllTasksPage.module.scss";
@@ -27,6 +28,7 @@ const AllTasksPage: React.FC = () => {
   }>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const itemsPerPage = 10;
 
   const handleDelete = async () => {
@@ -119,49 +121,76 @@ const AllTasksPage: React.FC = () => {
       render: (task: Task) => {
         const isAdmin = user?.role === "Admin";
         return (
-          <div className={styles.tooltipWrapper}>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (isAdmin) {
-                  setDeleteId(task.id);
-                }
+                setSelectedTaskId(task.id);
               }}
-              disabled={!isAdmin}
               style={{
                 padding: "0.5rem 0.75rem",
                 fontSize: "0.8125rem",
-                backgroundColor: isAdmin ? "#ef4444" : "#9ca3af",
+                backgroundColor: "#3b82f6",
                 color: "white",
                 border: "none",
                 borderRadius: "0.375rem",
-                cursor: isAdmin ? "pointer" : "not-allowed",
+                cursor: "pointer",
                 fontWeight: 500,
-                opacity: isAdmin ? 1 : 0.6,
                 transition: "background-color 0.2s",
               }}
               onMouseEnter={(e) => {
-                if (isAdmin) {
-                  e.currentTarget.style.backgroundColor = "#dc2626";
-                }
+                e.currentTarget.style.backgroundColor = "#2563eb";
               }}
               onMouseLeave={(e) => {
-                if (isAdmin) {
-                  e.currentTarget.style.backgroundColor = "#ef4444";
-                }
+                e.currentTarget.style.backgroundColor = "#3b82f6";
               }}
             >
-              Sil
+              Görüntüle
             </button>
-            {!isAdmin && (
-              <span className={styles.tooltip}>
-                Yönetici yetkisi gerekmektedir
-              </span>
-            )}
+            <div className={styles.tooltipWrapper}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (isAdmin) {
+                    setDeleteId(task.id);
+                  }
+                }}
+                disabled={!isAdmin}
+                style={{
+                  padding: "0.5rem 0.75rem",
+                  fontSize: "0.8125rem",
+                  backgroundColor: isAdmin ? "#ef4444" : "#9ca3af",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "0.375rem",
+                  cursor: isAdmin ? "pointer" : "not-allowed",
+                  fontWeight: 500,
+                  opacity: isAdmin ? 1 : 0.6,
+                  transition: "background-color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  if (isAdmin) {
+                    e.currentTarget.style.backgroundColor = "#dc2626";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (isAdmin) {
+                    e.currentTarget.style.backgroundColor = "#ef4444";
+                  }
+                }}
+              >
+                Sil
+              </button>
+              {!isAdmin && (
+                <span className={styles.tooltip}>
+                  Yönetici yetkisi gerekmektedir
+                </span>
+              )}
+            </div>
           </div>
         );
       },
-      width: "100px",
+      width: "180px",
       align: "center" as const,
     },
   ];
@@ -268,6 +297,12 @@ const AllTasksPage: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+      {/* Talep Detay Modal */}
+      <TaskDetailModal
+        task={items.find((t) => t.id === selectedTaskId) || null}
+        onClose={() => setSelectedTaskId(null)}
+      />
     </div>
   );
 };

@@ -120,7 +120,11 @@ app.post("/admin/login", (req, res) => {
 });
 
 app.post("/admin/logout", (req, res) => {
-  res.clearCookie("admin_token");
+  res.clearCookie("admin_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
   res.json({ message: "Logout successful" });
 });
 
@@ -170,7 +174,11 @@ app.post("/users/login", (req, res) => {
 });
 
 app.post("/users/logout", (req, res) => {
-  res.clearCookie("user_token");
+  res.clearCookie("user_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
   res.json({ message: "Logout successful" });
 });
 

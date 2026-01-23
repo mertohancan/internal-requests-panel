@@ -57,16 +57,6 @@
       "rejectionReason": "Yoğun dönem, hafta içi planlama uygun değil."
     },
     {
-      "id": "t5",
-      "title": "Diğer: Ekran kırıldı",
-      "description": "Laptop ekranında çatlak oluştu.",
-      "priority": "high",
-      "category": "Diğer",
-      "status": "approved",
-      "createdBy": "u1",
-      "createdAt": "2026-01-19T09:55:00.000Z"
-    },
-    {
       "id": "t6",
       "title": "Teknik: Mail imzası güncelleme",
       "description": "Yeni unvan ile imza güncellenmeli.",
@@ -106,16 +96,6 @@
       "createdBy": "u1",
       "createdAt": "2026-01-09T12:45:00.000Z",
       "rejectionReason": "Saha çalışması planlandı, geçici çözüm önerildi."
-    },
-    {
-      "id": "t10",
-      "title": "Diğer: Kart erişimi",
-      "description": "Turnike kartım çalışmıyor.",
-      "priority": "urgent",
-      "category": "Diğer",
-      "status": "approved",
-      "createdBy": "u1",
-      "createdAt": "2026-01-19T07:30:00.000Z"
     },
     {
       "id": "t11",
@@ -198,6 +178,156 @@
       "status": "approved",
       "createdBy": "u2",
       "createdAt": "2026-01-04T10:00:00.000Z"
+    },
+    {
+      "id": "t20",
+      "title": "Satın Alma: Klavye",
+      "description": "Mekanik klavye talebi. Mevcut klavyede bazı tuşlar çalışmıyor.",
+      "priority": "high",
+      "category": "Satın Alma",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-22T09:15:00.000Z"
+    },
+    {
+      "id": "t21",
+      "title": "İzin Talebi: 3 Gün",
+      "description": "Şubat ayı için 3 günlük yıllık izin talep ediyorum.",
+      "priority": "normal",
+      "category": "İzin Talebi",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-21T14:30:00.000Z"
+    },
+    {
+      "id": "t22",
+      "title": "Teknik: VPN erişimi",
+      "description": "Uzaktan çalışma için VPN hesabı gerekli.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-23T08:00:00.000Z"
+    },
+    {
+      "id": "t23",
+      "title": "Satın Alma: Mouse pad",
+      "description": "Ergonomik mouse pad talep ediyorum.",
+      "priority": "low",
+      "category": "Satın Alma",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-20T11:45:00.000Z"
+    },
+    {
+      "id": "t24",
+      "title": "Diğer: Araç park yeri",
+      "description": "Kapalı otopark kartı talebi.",
+      "priority": "normal",
+      "category": "Diğer",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-19T10:20:00.000Z"
+    },
+    {
+      "id": "t25",
+      "title": "Teknik: Adobe Creative Cloud",
+      "description": "Photoshop ve Illustrator için lisans talebi.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-22T15:00:00.000Z"
+    },
+    {
+      "id": "t26",
+      "title": "İzin: Doktor raporu",
+      "description": "Sağlık raporu nedeniyle yarım gün izin.",
+      "priority": "high",
+      "category": "İzin Talebi",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-23T07:30:00.000Z"
+    },
+    {
+      "id": "t27",
+      "title": "Satın Alma: Laptop stand",
+      "description": "Boyun ağrısı nedeniyle laptop standı gerekli.",
+      "priority": "normal",
+      "category": "Satın Alma",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-21T16:10:00.000Z"
+    },
+    {
+      "id": "t28",
+      "title": "Teknik: GitHub Enterprise",
+      "description": "Private repository için kurumsal hesap talebi.",
+      "priority": "normal",
+      "category": "Teknik Destek",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-20T13:25:00.000Z"
+    },
+    {
+      "id": "t29",
+      "title": "Diğer: Eğitim katılımı",
+      "description": "React Summit konferansına katılım için onay talebi.",
+      "priority": "low",
+      "category": "Diğer",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "t30",
+      "title": "Satın Alma: Webcam",
+      "description": "Toplantılar için 4K webcam talebi.",
+      "priority": "normal",
+      "category": "Satın Alma",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-22T10:40:00.000Z"
+    },
+    {
+      "id": "t31",
+      "title": "Teknik: Database yetkilendirme",
+      "description": "Production database read-only erişimi gerekli.",
+      "priority": "high",
+      "category": "Teknik Destek",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-23T09:15:00.000Z"
+    },
+    {
+      "id": "t32",
+      "title": "İzin: Evlilik yıldönümü",
+      "description": "Perşembe günü için özel izin talebi.",
+      "priority": "normal",
+      "category": "İzin Talebi",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-19T14:50:00.000Z"
+    },
+    {
+      "id": "t33",
+      "title": "Satın Alma: Harici SSD",
+      "description": "1TB harici SSD disk talebi. Backup için gerekli.",
+      "priority": "low",
+      "category": "Satın Alma",
+      "status": "pending",
+      "createdBy": "u2",
+      "createdAt": "2026-01-21T11:20:00.000Z"
+    },
+    {
+      "id": "t34",
+      "title": "Diğer: Referans mektubu",
+      "description": "Yüksek lisans başvurusu için referans mektubu rica ediyorum.",
+      "priority": "low",
+      "category": "Diğer",
+      "status": "pending",
+      "createdBy": "u1",
+      "createdAt": "2026-01-20T08:30:00.000Z"
     }
   ]
 }

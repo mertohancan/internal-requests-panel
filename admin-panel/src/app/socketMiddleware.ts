@@ -6,7 +6,6 @@ import type {
 import { io, Socket } from "socket.io-client";
 import {
   fetchTasks,
-  taskCreated,
   taskUpdated,
   taskDeleted,
 } from "@/features/tasks/tasksSlice";

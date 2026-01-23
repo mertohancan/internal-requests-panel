@@ -47,12 +47,6 @@ const Layout: React.FC<LayoutProps> = ({
     closeMobileMenu();
   };
 
-  const containerStyle: React.CSSProperties = {
-    display: "flex",
-    minHeight: "100vh",
-    position: "relative",
-  };
-
   const mobileHeaderStyle: React.CSSProperties = {
     display: "none",
     justifyContent: "space-between",
@@ -155,7 +149,6 @@ const Layout: React.FC<LayoutProps> = ({
     boxSizing: "border-box",
   };
 
-  // Media query detection
   const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
 
   React.useEffect(() => {
@@ -167,8 +160,15 @@ const Layout: React.FC<LayoutProps> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const responsiveContainerStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    minHeight: "100vh",
+    position: "relative",
+  };
+
   return (
-    <div style={containerStyle}>
+    <div style={responsiveContainerStyle}>
       {/* Mobile Header */}
       <div
         style={{

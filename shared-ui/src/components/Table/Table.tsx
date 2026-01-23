@@ -27,6 +27,11 @@ const containerStyle: React.CSSProperties = {
   overflow: "hidden",
 };
 
+const tableWrapperStyle: React.CSSProperties = {
+  overflowX: "auto",
+  width: "100%",
+};
+
 const emptyStateStyle: React.CSSProperties = {
   textAlign: "center",
   padding: `${theme.spacing["3xl"]} ${theme.spacing["2xl"]}`,
@@ -166,23 +171,25 @@ function Table<T>({
         {isEmpty ? (
           <div style={emptyStateStyle}>{emptyMessage}</div>
         ) : (
-          <table style={tableStyle}>
-            <thead>
-              <tr style={theadRowStyle}>{headerCells}</tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <TableRow
-                  key={keyExtractor(item)}
-                  item={item}
-                  columns={columns}
-                  keyExtractor={keyExtractor}
-                  onRowClick={onRowClick}
-                  hoverable={hoverable}
-                />
-              ))}
-            </tbody>
-          </table>
+          <div style={tableWrapperStyle}>
+            <table style={tableStyle}>
+              <thead>
+                <tr style={theadRowStyle}>{headerCells}</tr>
+              </thead>
+              <tbody>
+                {data.map((item) => (
+                  <TableRow
+                    key={keyExtractor(item)}
+                    item={item}
+                    columns={columns}
+                    keyExtractor={keyExtractor}
+                    onRowClick={onRowClick}
+                    hoverable={hoverable}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 

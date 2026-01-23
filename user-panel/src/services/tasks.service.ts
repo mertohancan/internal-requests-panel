@@ -7,6 +7,7 @@ export interface CreateTaskRequest {
   priority: Task["priority"];
   category: string;
   createdBy: string;
+  status?: Task["status"];
 }
 
 class TasksService {
@@ -21,7 +22,11 @@ class TasksService {
 
   async createTask(task: CreateTaskRequest): Promise<Task> {
     try {
-      const response = await api.post<Task>("/tasks", task);
+      const taskWithStatus = {
+        ...task,
+        status: task.status || ("pending" as Task["status"]),
+      };
+      const response = await api.post<Task>("/tasks", taskWithStatus);
       return response.data;
     } catch (error) {
       throw new Error(getErrorMessage(error, "Talep oluşturulamadı"));

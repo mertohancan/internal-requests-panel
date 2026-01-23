@@ -20,9 +20,7 @@ export const socketMiddleware: Middleware = (store) => {
     });
 
     socket.on("connect", () => {
-      (store.dispatch as ThunkDispatch<unknown, unknown, UnknownAction>)(
-        fetchTasks(),
-      );
+      // Don't fetch tasks on initial connect - components will fetch when they mount
     });
 
     socket.on("reconnect", () => {

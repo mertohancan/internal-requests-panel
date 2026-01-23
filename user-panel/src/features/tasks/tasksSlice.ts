@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { api } from "@/services/api";
+import { tasksService } from "@/services/tasks.service";
+import type { CreateTaskRequest } from "@/services/tasks.service";
 import type { Task } from "@/types";
-import { getErrorMessage } from "@/utils/errorHandler";
 
 interface TasksState {
   items: Task[];
@@ -20,25 +20,26 @@ export const fetchTasks = createAsyncThunk(
   "tasks/fetchTasks",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await api.get("/tasks");
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(getErrorMessage(err, "Talepler alınamadı."));
+      const tasks = await tasksService.fetchTasks();
+      return tasks;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Talepler alınamadı";
+      return rejectWithValue(message);
     }
   },
 );
 
 export const createTask = createAsyncThunk(
   "tasks/createTask",
-  async (
-    task: Omit<Task, "id" | "status" | "createdAt" | "rejectionReason">,
-    { rejectWithValue },
-  ) => {
+  async (task: CreateTaskRequest, { rejectWithValue }) => {
     try {
-      const res = await api.post("/tasks", task);
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(getErrorMessage(err, "Talep oluşturulamadı."));
+      const newTask = await tasksService.createTask(task);
+      return newTask;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Talep oluşturulamadı";
+      return rejectWithValue(message);
     }
   },
 );
@@ -65,9 +66,9 @@ const tasksSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(createTask.fulfilled, (state, action: PayloadAction<Task>) => {
+      .addCase(createTask.fulfilled, (state) => {
         state.loading = false;
-        state.items.unshift(action.payload);
+        // Socket middleware will update tasks, no need to modify state here
       })
       .addCase(createTask.rejected, (state, action) => {
         state.loading = false;

@@ -54,7 +54,7 @@ const DashboardPage: React.FC = () => {
       });
       setFormSuccess(true);
       setTimeout(() => setFormSuccess(false), 2000);
-      dispatch(fetchTasks());
+      // Don't manually fetch - socket event will update automatically
       setModalOpen(false);
     } catch (err) {
       setFormError("Kayıt sırasında hata oluştu.");

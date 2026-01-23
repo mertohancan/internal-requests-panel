@@ -1,11 +1,20 @@
 import { api, getErrorMessage } from "./api";
-import type { LoginRequest, LoginResponse, AdminUser } from "./types";
+import type { User } from "@/types";
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  user: User;
+}
 
 class AuthService {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
       const response = await api.post<LoginResponse>(
-        "/admin/login",
+        "/users/login",
         credentials,
       );
       return response.data;
@@ -15,16 +24,15 @@ class AuthService {
   }
 
   async logout(): Promise<void> {
-    await api.post("/admin/logout");
+    await api.post("/users/logout");
   }
 
-  async getCurrentUser(): Promise<AdminUser | null> {
+  async getCurrentUser(): Promise<User | null> {
     try {
-      const response = await api.get<LoginResponse>("/admin/me");
+      const response = await api.get<LoginResponse>("/users/me");
 
       return response.data.user;
     } catch (error) {
-      console.log("[AuthService] Error fetching user:", error);
       // If 401, user is not authenticated
       if (
         typeof error === "object" &&
@@ -32,7 +40,6 @@ class AuthService {
         "response" in error &&
         (error as any).response?.status === 401
       ) {
-        console.log("[AuthService] User not authenticated (401)");
         return null;
       }
       throw new Error(getErrorMessage(error, "Kullanıcı bilgisi alınamadı"));

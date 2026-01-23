@@ -6,10 +6,41 @@ import TaskFormPage from "@/features/tasks/TaskFormPage";
 import Navbar from "@/components/Navbar";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { loadUserFromStorage } from "@/features/auth/authSlice";
+import { loadCurrentUser } from "@/features/auth/authSlice";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, initializing } = useAppSelector((state) => state.auth);
+
+  // Wait for initial user load
+  if (initializing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "var(--bg-primary)",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid var(--border-light)",
+              borderTop: "4px solid #3b82f6",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p style={{ color: "var(--text-secondary)" }}>Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!user) return <Navigate to="/login" replace />;
   return (
     <>
@@ -21,13 +52,49 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
 
 function App() {
   const dispatch = useAppDispatch();
+  const { user, initializing } = useAppSelector((state) => state.auth);
+
   useEffect(() => {
-    dispatch(loadUserFromStorage());
+    dispatch(loadCurrentUser());
   }, [dispatch]);
+
+  // Show loading while checking authentication
+  if (initializing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "#fafbfc",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid #e5e7eb",
+              borderTop: "4px solid #3b82f6",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p style={{ color: "#6b7280" }}>Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />}
+        />
         <Route
           path="/dashboard"
           element={

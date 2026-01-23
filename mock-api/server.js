@@ -56,6 +56,25 @@ app.get("/users", (req, res) => {
   res.json(db.users);
 });
 
+app.get("/users/me", (req, res) => {
+  const token = req.cookies.user_token;
+
+  if (!token) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userId = token.replace("mock-token-", "");
+  const db = readDB();
+  const user = db.users.find((u) => u.id === userId);
+
+  if (!user) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ user: userWithoutPassword });
+});
+
 app.get("/users/:id", (req, res) => {
   const db = readDB();
   const user = db.users.find((u) => u.id === req.params.id);
@@ -91,7 +110,7 @@ app.post("/admin/login", (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 24 * 60 * 60 * 1000, // 24 saat
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
   const { password: _, ...userWithoutPassword } = user;
@@ -103,6 +122,25 @@ app.post("/admin/login", (req, res) => {
 app.post("/admin/logout", (req, res) => {
   res.clearCookie("admin_token");
   res.json({ message: "Logout successful" });
+});
+
+app.get("/admin/me", (req, res) => {
+  const token = req.cookies.admin_token;
+
+  if (!token) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  const userId = token.replace("mock-token-", "");
+  const db = readDB();
+  const user = db.adminUsers.find((u) => u.id === userId);
+
+  if (!user) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ user: userWithoutPassword });
 });
 
 app.post("/users/login", (req, res) => {
@@ -122,7 +160,7 @@ app.post("/users/login", (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 
   const { password: _, ...userWithoutPassword } = user;

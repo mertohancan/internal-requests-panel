@@ -7,19 +7,21 @@ interface AuthState {
   user: AdminUser | null;
   loading: boolean;
   error: string | null;
+  initializing: boolean; // Initial load from backend
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
+  initializing: true, // Start as true until first load completes
 };
 
-// Load user from localStorage on app start
-export const loadUserFromStorage = createAsyncThunk(
-  "auth/loadUserFromStorage",
+// Load current user from backend on app start
+export const loadCurrentUser = createAsyncThunk(
+  "auth/loadCurrentUser",
   async () => {
-    const user = authService.loadUserFromStorage();
+    const user = await authService.getCurrentUser();
     return user;
   },
 );
@@ -30,7 +32,6 @@ export const login = createAsyncThunk(
   async (credentials: LoginRequest, { rejectWithValue }) => {
     try {
       const { user } = await authService.login(credentials);
-      authService.saveAuth(user);
       return user;
     } catch (error) {
       const message =
@@ -51,8 +52,16 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loadUserFromStorage.fulfilled, (state, action) => {
+      .addCase(loadCurrentUser.pending, (state) => {
+        state.initializing = true;
+      })
+      .addCase(loadCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.initializing = false;
+      })
+      .addCase(loadCurrentUser.rejected, (state) => {
+        state.user = null;
+        state.initializing = false;
       })
       .addCase(login.pending, (state) => {
         state.loading = true;

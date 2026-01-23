@@ -8,11 +8,41 @@ import LoginPage from "./features/auth/LoginPage";
 import Layout from "@/components/Layout";
 import Toast from "@/components/Toast";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { loadUserFromStorage } from "@/features/auth/authSlice";
+import { loadCurrentUser } from "@/features/auth/authSlice";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, initializing } = useAppSelector((state) => state.auth);
+
+  // Wait for initial user load
+  if (initializing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "var(--bg-primary)",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid var(--border-light)",
+              borderTop: "4px solid var(--color-primary-500)",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p style={{ color: "var(--text-secondary)" }}>Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -29,7 +59,37 @@ const RoleProtectedRoute = ({
   children: React.ReactNode;
   allowedRoles: Array<"Admin" | "Moderator" | "Viewer">;
 }) => {
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, initializing } = useAppSelector((state) => state.auth);
+
+  // Wait for initial user load
+  if (initializing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "var(--bg-primary)",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid var(--border-light)",
+              borderTop: "4px solid var(--color-primary-500)",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p style={{ color: "var(--text-secondary)" }}>Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -82,11 +142,41 @@ const RoleProtectedRoute = ({
 
 function App() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, initializing } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(loadUserFromStorage());
+    dispatch(loadCurrentUser());
   }, [dispatch]);
+
+  // Show loading while checking authentication
+  if (initializing) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "var(--bg-primary)",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid var(--border-light)",
+              borderTop: "4px solid var(--color-primary-500)",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p style={{ color: "var(--text-secondary)" }}>Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
